@@ -1,0 +1,35 @@
+function [r02, R2, Tr2, dTr2, Tphi2, dTphi2, dddr02dtdt_dq, dddr02dtdt_ddq] = set_IMU_Joint(...
+    dq, IMUParameter, Body)
+   
+    r01 = Body.r; 
+    R1 = Body.R; 
+    Tr1 = Body.Tr; 
+    Tphi1 = Body.Tphi; 
+    dTr1 = Body.dTr; 
+    dTphi1 = Body.dTphi; 
+    dddr01dtdt_dq = Body.dddrdtdt_dq; 
+    dddr01dtdt_ddq = Body.dddrdtdt_ddq; 
+    ddomega1dt_dq = Body.ddomegadt_dq; 
+    ddomega1dt_ddq = Body.ddomegadt_ddq; 
+
+    BodyQuantity = size(Tr1, 2); 
+    Talpha = zeros(1, BodyQuantity); 
+    dTalpha = zeros(1, BodyQuantity);
+
+    r_1_12 = IMUParameter.r; 
+    phi_1_12 = IMUParameter.phi; 
+
+    
+    alpha = norm(phi_1_12);
+    if alpha ~= 0
+        RotationAxis = phi_1_12 / alpha;
+    else
+        RotationAxis = [1; 0; 0];
+    end
+
+   
+    [r02, R2, Tr2, Tphi2, dTr2, dTphi2, dddr02dtdt_dq, dddr02dtdt_ddq] = FixedRotation_ForwardKinematics(...
+        RotationAxis, alpha, Talpha, dTalpha, r01, R1, Tr1, Tphi1, dTr1, dTphi1, ...
+        dddr01dtdt_dq, dddr01dtdt_ddq, ddomega1dt_dq, ddomega1dt_ddq, ...
+        dq, zeros(size(dq)), r_1_12);
+end

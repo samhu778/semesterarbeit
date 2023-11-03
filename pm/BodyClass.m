@@ -69,7 +69,7 @@ classdef BodyClass
             obj.ddomegadt_ddq = ddomegadt_ddq;
         end
 
-        function set_Joint(obj, dq, BodyParameter)
+        function obj=set_Joint(obj, dq, BodyParameter)
             r01 = obj.r;
             R1 = obj.R;
             Tr1 = obj.Tr;
@@ -88,7 +88,7 @@ classdef BodyClass
             %obj.Joint = cell(1, JointQuantity);
             obj.Joint = {};
             for JointNr = 1:JointQuantity
-                r_1_12 = BodyParameter.Joint{JointNr}.r;
+                 r_1_12 =BodyParameter.Joint{JointNr}.r;
                 phi_1_12 = BodyParameter.Joint{JointNr}.phi;
                 alpha = norm(phi_1_12);
                 if alpha ~= 0

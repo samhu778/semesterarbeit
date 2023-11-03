@@ -15,9 +15,3 @@ function R = get_R(phi)
     % Additional definition: R(phi = 0) = I, to make it globally continuous
 end
 
-function S = skew(v)
-    
-    S = [0, -v(3), v(2);
-         v(3), 0, -v(1);
-         -v(2), v(1), 0];
-end

@@ -31,11 +31,10 @@ classdef FrameClass
             obj.Parameter = Parameter;
         end
 
-        function set_Joint(obj, dq)
+        function obj=set_Joint(obj, dq)
             obj.Joint = {};
             FrameParameter = obj.Parameter;
-            JointQuantity = length(FrameParameter.Joint);%有的
-
+            JointQuantity = length(FrameParameter.Joint);
             for JointNr = 1:JointQuantity
                 r_1_12 = FrameParameter.Joint{JointNr}.r;
                 phi_1_12 = FrameParameter.Joint{JointNr}.phi;
